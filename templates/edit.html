@@ -1,0 +1,148 @@
+<doctype html>
+<head>
+<title>Edit User - Python Flask MySQL CRUD</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<h2>Edit User</h2>
+<form name="RegForm1" method="post" action="/update" onsubmit="return GEEKFORGEEKS1()">
+    <dl>
+		<p>
+			<input name="firstName" value="{{ row['firstName'] }}" type="text" placeholder="firstName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="lastName" value="{{ row['lastName'] }}" type="text" placeholder="lastName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="inputEmail" value="{{ row['email'] }}" type="text" placeholder="Email" autocomplete="off" >
+		</p>
+		<p>
+			<input name="phone" value="{{ row['phone'] }}" type="number" placeholder="phone" autocomplete="off" >
+		</p>
+    </dl>
+    <p>
+		<input name="id" value="{{ row['user_id'] }}" type="hidden">
+		<input type="submit" value="Submit">
+	</p>
+</form>
+<script> 
+function GEEKFORGEEKS()                                    
+{ 
+    var fname = document.forms["RegForm"]["firstName"];
+    var lname = document.forms["RegForm"]["lastName"];               
+    var email = document.forms["RegForm"]["inputEmail"];    
+    var phone = document.forms["RegForm"]["phone"];  
+      
+   
+    if (fname.value == "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        fname.focus(); 
+        return false; 
+    }
+    if (lname.value == "")                                  
+    { 
+        window.alert("Please enter your lastname."); 
+        lname.focus(); 
+        return false; 
+    } 
+       
+    if (email.value == "")                                   
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf("@", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf(".", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (phone.value == "")                           
+    { 
+        window.alert("Please enter your telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+    if (phone.value >9999999999)                           
+    { 
+        window.alert("Please enter a valid telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+   
+    window.alert("User added successfully")
+    return true; 
+}</script>
+<script> 
+function GEEKFORGEEKS1()                                    
+{ 
+    var fname = document.forms["RegForm1"]["firstName"];
+    var lname = document.forms["RegForm1"]["lastName"];               
+    var email = document.forms["RegForm1"]["inputEmail"];    
+    var phone = document.forms["RegForm1"]["phone"];  
+      
+   
+    if (fname.value == "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        fname.focus(); 
+        return false; 
+    }
+    if (lname.value == "")                                  
+    { 
+        window.alert("Please enter your lastname."); 
+        lname.focus(); 
+        return false; 
+    } 
+       
+    if (email.value == "")                                   
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf("@", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf(".", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (phone.value == "")                           
+    { 
+        window.alert("Please enter your telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+    if (phone.value >9999999999)                           
+    { 
+        window.alert("Please enter a valid telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+   
+    window.alert("User added successfully")
+    return true; 
+}</script>  
+</body>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>List of users - Python Flask MySQL CRUD</title>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color:grey;}
+#customers tr:nth-child(odd){background-color:white;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0F29AC;
+  color: white;
+}
+</style>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: white">
+<div class="container">
+  <div align="right">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >
+    ADD USER
+  </button>
+</div>
+  
+ 
+        <center><h1 style="color: green">TABLE FOR USERS</h1>
+<table id="customers">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Phone Number</th>
+	</tr>
+   {% for row in row %}
+	<tr>
+		<td>{{row.firstName}}</td>
+		<td>{{row.lastName}}</td>
+		<td>{{row.email}}</td>
+		<td>{{row.phone}}</td>
+		<td><button  class="btn btn-primary" data-toggle="modal"  data-target="#myModal2{{row.user_id}}">EDIT</button></td>
+		<td><form action="/delete/{{row.user_id}}" ><button class="btn btn-danger" onclick ="delete1()">DELETE</button></form></td>
+	</tr>
+	 <!-- The Modal -->
+  <div class="modal" id="myModal2{{row.user_id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+        	
+            <h4 class="modal-title">FILL THE FORM</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+    
+          <form name="RegForm1" method="post" action="/update" onsubmit="return GEEKFORGEEKS1()">
+    <dl>
+		<p>
+			<input name="firstName" value="{{ row['firstName'] }}" type="text" placeholder="firstName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="lastName" value="{{ row['lastName'] }}" type="text" placeholder="lastName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="inputEmail" value="{{ row['email'] }}" type="text" placeholder="Email" autocomplete="off" >
+		</p>
+		<p>
+			<input name="phone" value="{{ row['phone'] }}" type="number" placeholder="phone" autocomplete="off" >
+		</p>
+    </dl>
+    <p>
+		<input name="id" value="{{ row['user_id'] }}" type="hidden" >
+		<input type="submit" value="Submit">
+	</p>
+</form>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+{%endfor%}
+</table>
+</center>
+<!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">FILL THE FORM</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form name="RegForm" method="POST" action="/add" onsubmit="return GEEKFORGEEKS()">
+    <dl>
+		<p>
+			<input name="firstName" value="" type="text" placeholder="firstName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="lastName" value="" type="text" placeholder="lastName" autocomplete="off" >
+		</p>
+		<p>
+			<input name="inputEmail" value="" type="text" placeholder="Email" autocomplete="off" >
+		</p>
+		<p>
+			<input name="phone" value="" type="number" placeholder="phone" autocomplete="off" >
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
+<p>
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+<ul class=flashes> 
+{% for message in messages %}
+ <li>{{ message }}</li>
+{% endfor %}
+</ul>
+ {% endif %}
+{% endwith %}
+</p>
+
+<script> 
+function delete1() {
+	window.alert("User deleted successfully")
+}
+function GEEKFORGEEKS()                                    
+{ 
+    var fname = document.forms["RegForm"]["firstName"];
+    var lname = document.forms["RegForm"]["lastName"];               
+    var email = document.forms["RegForm"]["inputEmail"];    
+    var phone = document.forms["RegForm"]["phone"];  
+      
+   
+    if (fname.value == "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        fname.focus(); 
+        return false; 
+    }
+    if (lname.value == "")                                  
+    { 
+        window.alert("Please enter your lastname."); 
+        lname.focus(); 
+        return false; 
+    } 
+       
+    if (email.value == "")                                   
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf("@", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf(".", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (phone.value == "")                           
+    { 
+        window.alert("Please enter your telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+    if (phone.value >9999999999)                           
+    { 
+        window.alert("Please enter a valid telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+   
+    window.alert("User added successfully")
+    return true; 
+}
+function GEEKFORGEEKS1()                                    
+{ 
+    var fname = document.forms["RegForm1"]["firstName"];
+    var lname = document.forms["RegForm1"]["lastName"];               
+    var email = document.forms["RegForm1"]["inputEmail"];    
+    var phone = document.forms["RegForm1"]["phone"];  
+      
+   
+    if (fname.value == "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        fname.focus(); 
+        return false; 
+    }
+    if (lname.value == "")                                  
+    { 
+        window.alert("Please enter your lastname."); 
+        lname.focus(); 
+        return false; 
+    } 
+       
+    if (email.value == "")                                   
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf("@", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (email.value.indexOf(".", 0) < 0)                 
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    if (phone.value == "")                           
+    { 
+        window.alert("Please enter your telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+    if (phone.value >9999999999)                           
+    { 
+        window.alert("Please enter a valid telephone number."); 
+        phone.focus(); 
+        return false; 
+    } 
+   
+    window.alert("User added successfully")
+    return true; 
+}
+</script>
+
+</body>
+</html>
+
